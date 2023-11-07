@@ -2,13 +2,16 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
+final _auth = FirebaseAuth.instance;
+String? verificationID;
+
 // Handle Login Using Email and Password
 Future<bool> signInEmailPassword(
   String email,
   String password,
 ) async {
   try {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
+    await _auth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -31,7 +34,7 @@ Future<bool> signUpEmailPassword(
   String password,
 ) async {
   try {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -54,7 +57,7 @@ Future<bool> signInWithGoogle() async {
     log('Test');
     GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
 
-    await FirebaseAuth.instance.signInWithProvider(googleAuthProvider);
+    await _auth.signInWithProvider(googleAuthProvider);
 
     return true;
   } catch (e) {
@@ -69,9 +72,44 @@ Future<bool> signInPhoneNumber(String phoneNumber) async {
     log('Test');
     // GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
 
-    await FirebaseAuth.instance.signInWithPhoneNumber(phoneNumber);
+    // await _auth.signInWithPhoneNumber(phoneNumber);
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
+        log('huhehu $phoneAuthCredential');
+        // context.goNamed('verify');
+        // await _auth.signInWithCredential(phoneAuthCredential);
+      },
+      verificationFailed: (FirebaseAuthException error) {
+        if (error.code == 'invalid-phone-number') {
+          log('${error.message}');
+        }
+      },
+      codeSent: (String verificationId, int? forceResendingToken) {
+        verificationID = verificationId;
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        verificationID = verificationId;
+      },
+    );
 
     return true;
+  } on FirebaseAuthException catch (e) {
+    log('ini errornya $e');
+    return false;
+  }
+}
+
+Future<bool> verifyOTP(String otp) async {
+  try {
+    var credentials = await _auth.signInWithCredential(
+      PhoneAuthProvider.credential(
+        smsCode: otp,
+        verificationId: verificationID!,
+      ),
+    );
+
+    return credentials.user != null ? true : false;
   } catch (e) {
     log('ini errornya $e');
     return false;
@@ -88,6 +126,6 @@ Future<bool> signInPhoneNumber(String phoneNumber) async {
 
 // Handle Logout
 Future<void> signOut() async {
-  await FirebaseAuth.instance.signOut();
+  await _auth.signOut();
   return;
 }

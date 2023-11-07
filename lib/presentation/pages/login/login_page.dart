@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:weather_apps/presentation/pages/login/handle_login.dart';
 import 'package:weather_apps/presentation/widgets/header.dart';
 import 'package:weather_apps/presentation/widgets/custom_textformfield.dart';
+import 'package:weather_apps/services/firebase_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -69,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.25,
+                  height: MediaQuery.of(context).size.height * 0.30,
                   child: TabBarView(
                     children: [
                       emailSection(),
@@ -107,12 +108,19 @@ class _LoginPageState extends State<LoginPage> {
 
   Column phoneSection() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Phone Form
         phoneNumberForm(),
 
         const SizedBox(
-          height: 15,
+          height: 5,
+        ),
+
+        const Text('example: 857 1636 6797'),
+
+        const SizedBox(
+          height: 10,
         ),
 
         // Login Button
@@ -126,8 +134,11 @@ class _LoginPageState extends State<LoginPage> {
       controller: _phoneNumberController,
       labelText: 'Phone Number',
       inputType: TextInputType.number,
-      prefixIcon: const Icon(
-        CupertinoIcons.phone,
+      prefix: const Text(
+        '+62  ',
+        style: TextStyle(
+          color: Colors.black,
+        ),
       ),
     );
   }
@@ -275,8 +286,9 @@ class _LoginPageState extends State<LoginPage> {
             _passwordController.text,
           );
         } else {
-          log(_phoneNumberController.text);
-
+          var number = '+62${_phoneNumberController.text.trim()}';
+          log(number);
+          signInPhoneNumber(number);
           context.goNamed('verify');
         }
       },

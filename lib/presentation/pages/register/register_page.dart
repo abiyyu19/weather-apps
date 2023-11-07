@@ -72,7 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
 
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.25,
+                  height: MediaQuery.of(context).size.height * 0.30,
                   child: TabBarView(
                     children: [
                       emailSection(),
@@ -109,7 +109,13 @@ class _RegisterPageState extends State<RegisterPage> {
         phoneNumberForm(),
 
         const SizedBox(
-          height: 15,
+          height: 5,
+        ),
+
+        const Text('example: 857 1636 6797'),
+
+        const SizedBox(
+          height: 10,
         ),
 
         // Login Button
@@ -123,8 +129,11 @@ class _RegisterPageState extends State<RegisterPage> {
       controller: _phoneNumberController,
       labelText: 'Phone Number',
       inputType: TextInputType.number,
-      prefixIcon: const Icon(
-        CupertinoIcons.phone,
+      prefix: const Text(
+        '+62  ',
+        style: TextStyle(
+          color: Colors.black,
+        ),
       ),
     );
   }

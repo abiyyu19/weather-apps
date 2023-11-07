@@ -9,6 +9,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool? obsecureText;
   final IconButton? suffixIcon;
   final Icon? prefixIcon;
+  final Widget? prefix;
 
   const CustomTextFormField({
     super.key,
@@ -18,6 +19,7 @@ class CustomTextFormField extends StatelessWidget {
     this.obsecureText,
     this.suffixIcon,
     this.prefixIcon,
+    this.prefix,
   });
 
   @override
@@ -26,6 +28,7 @@ class CustomTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         border: const OutlineInputBorder(),
+        prefix: prefix,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         fillColor: Colors.white,
