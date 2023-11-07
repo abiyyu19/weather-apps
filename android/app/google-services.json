@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "527895033367",
+    "project_id": "weather-apps-4aa45",
+    "storage_bucket": "weather-apps-4aa45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527895033367:android:e2bd1ae4b57a1073d44e52",
+        "android_client_info": {
+          "package_name": "com.biyu.weather_apps"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuwAJuNBGMNgl7B0qy90HewiG25Lt3QZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,12 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:weather_apps/firebase_options.dart';
 import 'package:weather_apps/presentation/pages/home/home_page.dart';
 import 'package:weather_apps/presentation/pages/login/login_page.dart';
+import 'package:weather_apps/presentation/pages/login/verify_page.dart';
 import 'package:weather_apps/presentation/pages/register/register_page.dart';
+import 'package:weather_apps/presentation/pages/splash_screen.dart';
 import 'package:weather_apps/presentation/pages/weather_details/weather_details_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(MyApp());
 }
 
@@ -26,12 +35,19 @@ class MyApp extends StatelessWidget {
                 builder: (context, state) {
                   return const RegisterPage();
                 }),
+            GoRoute(
+              path: 'verify',
+              name: 'verify',
+              builder: (context, state) {
+                return const VerifyPage();
+              },
+            )
           ]),
       GoRoute(
           path: '/',
           name: 'home_page',
           builder: (context, state) {
-            return const HomePage();
+            return HomePage();
           },
           routes: [
             GoRoute(
@@ -41,28 +57,28 @@ class MyApp extends StatelessWidget {
                 return const WeatherDetailsPage();
               },
             )
-          ])
+          ]),
+      GoRoute(
+        path: '/splash_screen',
+        name: 'splash_screen',
+        builder: (context, state) {
+          return const SplashScreenPage();
+        },
+      )
     ],
-    initialLocation: '/login',
+    initialLocation: '/splash_screen',
     debugLogDiagnostics: true,
-    routerNeglect: true,
   );
 
   MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-      child: MaterialApp.router(
-        routeInformationParser: router.routeInformationParser,
-        routerDelegate: router.routerDelegate,
-        routeInformationProvider: router.routeInformationProvider,
-        debugShowCheckedModeBanner: false,
-      ),
+    return MaterialApp.router(
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+      routeInformationProvider: router.routeInformationProvider,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

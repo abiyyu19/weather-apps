@@ -22,7 +22,7 @@ class Header extends StatelessWidget {
         ),
 
         const SizedBox(
-          height: 50,
+          height: 30,
         ),
 
         // Text
