@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class WeatherCard extends StatelessWidget {
-  final Icon icon;
+  final Image icon;
   final String date;
   final String weather;
-  final String temp;
+  final double temp;
   final Function() onPressed;
 
   const WeatherCard({
@@ -45,7 +45,7 @@ class WeatherCard extends StatelessWidget {
               height: 4,
             ),
             Text(
-              "Temp: $temp",
+              "Temp: $temp°C",
               style: const TextStyle(
                 color: Colors.black87,
               ),

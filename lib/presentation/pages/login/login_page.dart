@@ -117,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
           height: 5,
         ),
 
-        const Text('example: 857 1636 6797'),
+        const Text('example: +62 857 1636 6797'),
 
         const SizedBox(
           height: 10,

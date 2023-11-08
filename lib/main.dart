@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weather_apps/firebase_options.dart';
+import 'package:weather_apps/model/weather_model.dart';
 import 'package:weather_apps/presentation/pages/home/home_page.dart';
 import 'package:weather_apps/presentation/pages/login/login_page.dart';
 import 'package:weather_apps/presentation/pages/login/verify_page.dart';
@@ -54,7 +55,13 @@ class MyApp extends StatelessWidget {
               path: 'weather_details',
               name: 'weather_details',
               builder: (context, state) {
-                return const WeatherDetailsPage();
+                Object? object = state.extra;
+
+                if (object != null && object is WeatherList) {
+                  return WeatherDetailsPage(weatherList: object);
+                } else {
+                  return const WeatherDetailsPage();
+                }
               },
             )
           ]),
