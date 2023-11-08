@@ -10,6 +10,15 @@ A weather forecaster app that would allow users to see the weather forecasts in 
 4. For Sign In or Sign Up using a Google account on an iOS device, add 'com.googleusercontent.apps.527895033367-p6jhd4ga7qv1ekussggkhkgvi063kinf' to your Runner workspace using Xcode. Please note that I haven't tested the Google Sign-In feature on iOS as I don't have access to a Mac device.
 5. To run the project locally, use the 'flutter run' command in the terminal.
 6. For Email and Password login, use 'test@gmail.com' with the password 'test123'. Alternatively, you can use the dummy phone number '+62 112 2334 4556' and OTP '123456' to test login using a phone number.
+7. To generate APK files for the project, you can use the following commands:
+   - `flutter build apk --split-per-abi` => to build a release APK for each target ABI (Application Binary Interface).
+   - `flutter build apk --release` => to build a single release APK.
+8. To install an APK from the project folder, use the 'flutter install' command in the root project folder, then connect your Android device via a USB cable.
+
+# Note
+
+- While this app has the capability to detect the user's location using the Geolocator library, it currently uses Jakarta as a static location. This choice is made because the location obtained from Geolocator contains Indonesian pronunciations, and the OpenWeatherMap API may not accurately identify the weather location.
+- This app does not implement any state management. Feel free to use this project as a starting point and explore implementing state management for improved functionality.
 
 ## Getting Started
 
